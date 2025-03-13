@@ -13,14 +13,14 @@ go test -timeout 30s -run .../.
 1. Create a new client using `NewClient()`
 2. Set the transport of the client to a stubbed transport using `roundTripFn`
 ```go
-    c = NewClient()
-	c.Client.Transport = roundTripFn(func(r *http.Request) (*http.Response, error) {
-		assert.Equal(t, r.URL.Path, "/v1/item/sword")
-		return &http.Response{
-			StatusCode: http.StatusOK,
-			Body:       io.NopCloser(strings.NewReader(`{"type":"sword"}`)),
-		}, nil
-	})
+c = NewClient()
+c.Client.Transport = roundTripFn(func(r *http.Request) (*http.Response, error) {
+    assert.Equal(t, r.URL.Path, "/v1/item/sword")
+    return &http.Response{
+        StatusCode: http.StatusOK,
+        Body:       io.NopCloser(strings.NewReader(`{"type":"sword"}`)),
+    }, nil
+})
 ```
 3. Call your function that uses the HTTP client
 4. Assert the expected behavior in your test
